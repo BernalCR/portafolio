@@ -28,6 +28,6 @@ const animation = () => {
   gsap.set(firstTextLoop, { xPercent: xPercent });
   gsap.set(secondTextLoop, { xPercent: xPercent });
 
-  xPercent += 0.05 * direction;
+  xPercent += 0.09 * direction;
   requestAnimationFrame(animation);
 };
