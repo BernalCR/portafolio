@@ -12,7 +12,6 @@ body{
     font-size: 16px; 
     margin: 0;
     background-color: #f7f8f8;
-    overflow-x: hidden;
 }
 h1, h2, h3, p, a{ font-family: "Oswald", serif; } 
 .bigP{
@@ -27,6 +26,10 @@ h1, h2, h3, p, a{ font-family: "Oswald", serif; }
     /* max-width: 120rem; */
     margin: auto;
 }
+#projects-section,
+#about-section{
+    margin-top: clamp(9rem,10vw,15rem);
+}
 /* ---------- /GENERAL STYLES ---------- */
 
 /* ---------- /HEADER ---------- */
@@ -37,8 +40,9 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 4vw;
-    height: 6rem;
+    padding: 0 5vw;
+    height: 10rem;
+    z-index: 111;
 }
 header nav{
     width: 45%;
@@ -47,11 +51,12 @@ header nav{
     gap: 3rem;
 }
 header nav a{
-    transition: all 0.2s ease-in-out;
+    transition: border 0.2s ease-in-out;
     border-bottom: 1px solid transparent;
     cursor: pointer;
     padding-bottom: .3rem;
     font-weight: 400;
+    text-decoration: none;
 }
 header nav a.active, header nav a:hover{
     border-bottom: 1px solid;
@@ -64,19 +69,21 @@ header nav a.active, header nav a:hover{
     height: 85vh;
     display: flex;
     align-items: center;
+    position: relative;
+    margin-top: 5rem;
 }
 #introSec h1{
-    font-size: 16rem;
+    font-size: clamp(6rem, 14vw, 16rem);
     line-height: 1.1;
     font-weight: 600;
 }
 #introSec .lookBox{
     position: absolute;
-    bottom: 12vw;
+    bottom: 7vh;
     right: 6vw;
 }
 #introSec .lookBox p{
-    font-size: 3rem;
+    font-size: clamp(2.5rem,4vw,3rem);
     letter-spacing: 1px;
     line-height: 1.1;
     font-weight: 400;
@@ -98,10 +105,24 @@ header nav a.active, header nav a:hover{
     width: 50px;
     animation: moveArrow 1.7s ease-in-out infinite;
 }
+
+@media screen and (max-width: 700px){
+    #projects-section{
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 30rem;
+    }
+    #projects-section > div{
+        grid-column: 1 / 3 !important;
+        grid-row: auto !important;
+    }
+}
 /* ---------- INTRODUCCION SECTION/ ---------- */
 
 
 /* ---------- /LOOP TEXT ---------- */
+.loopOverflow{
+    overflow: hidden;
+}
 #loopContainer{
     position: relative;
     white-space: nowrap;
@@ -111,7 +132,7 @@ header nav a.active, header nav a:hover{
   
 #loopContainer p{
   position: relative;
-  font-size: 18rem;
+  font-size: clamp(5rem, 15vw, 18rem);
   padding-right: 5rem;
   font-weight: 450;
 }
@@ -122,25 +143,45 @@ header nav a.active, header nav a:hover{
 #about-section{
     display: flex;
     gap: 4vw;
-    margin-top: 15rem;
+
 }
-#about-section span{
+/* #about-section span{
     display: block;
     width: 3px;
     height: 60vh;
-    background-color: black;
-}
-#about-section > div, #about-section > h2{
+    background-color: #1f4c76;
+} */
+/* #about-section > div, #about-section > h2{
     width: 50%;
-}
-#about-section > h2{
+} */
+/* #about-section > h2{
     text-align: center;
     align-self: center;
-    /* margin-bottom: 7rem; */
     font-size: 5rem;
     text-transform: uppercase;
     line-height: 1.2;
+} */
+
+.speedCols{
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    align-self: flex-end;
 }
+
+.magneticBtn{
+    display: block;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    background-color: #1f4c76;
+    padding: 1rem 4rem;
+    border-radius: .8rem;
+    width: fit-content;
+    text-decoration: none;
+  }
+
+  
 /* ---------- ABOUT SECTION/ ---------- */
 
 
@@ -149,18 +190,125 @@ header nav a.active, header nav a:hover{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-    margin-top: 15rem;
+    grid-auto-rows: min(25vw, 35rem);
 }
+#projects-section > div > div{
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+}
+#projects-section > div img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.2s ease-in-out;
+    transform: scale(1.08);
+}
+
 #projects-section > div{
-border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 #projects-section > div:nth-child(1){
     grid-column: 1 / 3;
     grid-row: 1 / 3;
-    height: min(80vh, 70rem);
 }
 #projects-section > div:nth-child(4){
-    grid-column: 3 / 5;
+    grid-column: 3 / 4;
     grid-row: 2 / 3;
 }
+
+@media screen and (max-width: 700px){
+    #projects-section{
+        grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 30rem;
+    }
+    #projects-section > div{
+        grid-column: 1 / 3 !important;
+        grid-row: auto !important;
+    }
+}
 /* ---------- PROJECTS SECTION/ ---------- */
+
+
+
+
+
+.card_presentation{
+    position: relative;
+    cursor: pointer;
+}
+.card_presentation > div:first-child{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    z-index: 1;
+    position: relative;
+}
+.card_presentation > div:first-child img{
+    width: 4rem;
+}
+.card_presentation > div:first-child span{
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    top: 0;
+    right: 0;
+    border-radius: 1rem;
+    background-color: #52bf00;
+    position: absolute;
+}
+
+.presentation_box{
+    width: 40rem;
+    
+    background-color: #1f4c76;
+    border-radius: 1rem;
+    overflow: hidden;
+
+    height: 0;
+    width: 0;
+    padding: 0;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.presentation_box > span{
+    width: 100%;
+    height: 2px;
+    display: block;
+    background-color: #fff;
+    margin-bottom: 2rem;
+}
+.presentation_box a{
+    display: block;
+    text-decoration: none;
+    position: relative;
+    width: fit-content;
+    font-weight: 350;
+    margin-top: 4px;
+}
+.presentation_box a, .presentation_box p{
+    color: #fff;
+}
+.presentation_box a::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+    bottom: 0;
+    left: 0;
+    transform: scale(0, 1);
+    transition: transform 0.2s ease;
+}
+.presentation_box a:hover::after{ transform: scale(1, 1); }
+
+
+.presentation_box > div > div{
+    width: 50%;
+}
