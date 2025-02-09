@@ -24,7 +24,7 @@ h1, h2, h3, p, a{ font-family: "Oswald", serif; }
 }
 .width_container{
     width: 90%;
-    /* max-width: 120rem; */
+    max-width: 140rem;
     margin: auto;
 }
 #projects-section,
@@ -65,7 +65,12 @@ header nav a.active, header nav a:hover{
     border-bottom: 1px solid;
 }
 
-
+#closeOverlay{
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%; width: 100%;
+    display: none;
+}
 .cardName{
     color: #fff !important;
     letter-spacing: .05rem;
@@ -187,6 +192,29 @@ header nav a.active, header nav a:hover{
     line-height: 1.1;
     font-weight: 600;
 }
+#introSec h1 div{ overflow: hidden; }
+#introSec h1 span{ 
+    display: block; 
+    transform: translateY(100%);
+}
+#hookPhrase{
+    margin-left: 1rem;
+    margin-top: 2rem;
+    font-size: 2rem;
+    position: relative;
+    width: fit-content;
+    padding-right: 1rem;
+}
+#hookPhrase .mask{
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%; width: 0;
+    background-color: #fff;
+    display: block;
+}
+#hookPhrase .txt{
+    opacity: 0;
+}
 #introSec .lookBox{
     position: absolute;
     bottom: 7vh;
@@ -249,6 +277,29 @@ header nav a.active, header nav a:hover{
     min-height: 75vh;
     position: relative;
 }
+.magneticBtn{
+    display: block;
+    font-size: clamp(1.4rem,1.8vw,1.7rem);
+    cursor: pointer;
+    color: #000;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(255,255,255,0) 50%);
+    border: 2px solid #000;
+    padding: 1rem 4rem;
+    border-radius: .3rem;
+    width: fit-content;
+    text-decoration: none;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .2rem; 
+
+    background-size: 201% 100%;
+    background-position: 100%;
+    transition: all 0.2s linear;
+  }
+.magneticBtn:hover{
+    background-position: 0%;
+    color: #fff;
+}
 
 .speedCols{
     position: absolute;
@@ -267,10 +318,11 @@ header nav a.active, header nav a:hover{
     padding: 1.5rem 3rem 1rem 2rem;
 }
 
-/* .speedCols > div:nth-child(1){ max-height: 20rem; }
-.speedCols > div:nth-child(2){ max-height: 33rem; }
-.speedCols > div:nth-child(3){ max-height: 46rem; }
-.speedCols > div:nth-child(4){ max-height: 59rem; } */
+.speedCols > div h3{
+    font-size: clamp(1.3rem,2vw,3rem);
+    text-transform: uppercase;
+}
+
 
 @media screen and (max-width: 1100px){
     #about-section{ min-height: 65vh; }
@@ -282,51 +334,12 @@ header nav a.active, header nav a:hover{
     .speedCols  { width: 95%; }
 }
 @media screen and (max-width: 700px){
-    #about-section{ min-height: 57vh; }
+    #about-section .mediumP br{ display: none; }
     .speedCols{ width: 100%; }
     .speedCols > div{ padding: 1rem; }
     .speedCols P{ display: none; }
-
+    .magneticBtn{ padding: .8rem 3rem; }
 }
-.speedCols > div h3{
-    font-size: clamp(1.3rem,2vw,3rem);
-    text-transform: uppercase;
-}
-
-.magneticBtn{
-    display: block;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #000;
-    background: linear-gradient(90deg, rgba(0,0,0,1) 50%, rgba(255,255,255,0) 50%);
-    border: 2px solid #000;
-    padding: 1rem 4rem;
-    border-radius: .8rem;
-    width: fit-content;
-    text-decoration: none;
-    margin-top: 1rem;
-
-    background-size: 201% 100%;
-    background-position: 100%;
-    transition: all 0.2s linear;
-  }
-.magneticBtn:hover{
-    background-position: 0%;
-    color: #fff;
-  }
-/* .magneticBtn{
-    display: block;
-    font-size: 2rem;
-    cursor: pointer;
-    color: white;
-    background-color: #1f4c76;
-    padding: 1rem 4rem;
-    border-radius: .8rem;
-    width: fit-content;
-    text-decoration: none;
-    margin-top: 1rem;
-  } */
-
   
 /* ---------- ABOUT SECTION/ ---------- */
 
@@ -383,7 +396,7 @@ header nav a.active, header nav a:hover{
     text-decoration: none;
 }
 #projects-section h2{
-    font-size: 5rem;
+    font-size: clamp(3rem, 5vw, 5rem);
     line-height: 1.3;
     margin: 5vw 0;
 }
@@ -397,8 +410,6 @@ header nav a.active, header nav a:hover{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* transition: all 0.2s ease-in-out; */
-    /* transform: scale(1.08); */
 }
 #projects-section .containerImg + p{
     margin-top: 1.5rem;
@@ -410,6 +421,11 @@ header nav a.active, header nav a:hover{
 }
 #projects-section > div{
     width: 43%;
+}
+
+
+@media screen and (max-width: 700px){
+    #projects-section > div:last-child{ margin-top: 6rem; }
 }
 
 /* ---------- PROJECTS SECTION/ ---------- */

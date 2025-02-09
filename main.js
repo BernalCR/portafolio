@@ -7,96 +7,52 @@ let smoother = ScrollSmoother.create({
   smoothTouch: 0.2,
 });
 
+const isMobile = () => window.matchMedia("(max-width: 700px)").matches;
+
+let cardWidth;
+let cardLeft;
+let colsHeight;
+if(isMobile()){
+  cardWidth = "calc(100vw - 20px)";
+  cardLeft = 15;
+  colsHeight = 12;
+} else{
+  cardWidth = "40rem";
+  cardLeft = 0;
+  colsHeight = 8;
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+// Card presentation animation 
+const animationOnLoad = gsap.timeline();      
+animationOnLoad.to("h1 span", {yPercent: -100, duration: 1, ease: "expo.out", delay: .5})
+   .to("#hookPhrase .mask", { width: "100%", duration: 0.4}, "<.7") 
+   .set("#hookPhrase .txt", {opacity: 1})
+   .to("#hookPhrase .mask", { width: 0, duration: 0.4}) 
+});
+
 
 
 // Card presentation animation 
 const tlCard = gsap.timeline();      
 tlCard.to(".presentation_box", {height: '19rem', top: 0, padding: "7.3rem 2.5rem 2.5rem 2.5rem", y: "-1.8rem", duration: 0.4})
    .to(".card_presentation", { y: 30, duration: 0.4}, "<") 
-   .to(".presentation_box", {width: '40rem', left: 0, x: "-2.5rem", duration: 0.36}, "<") 
-  //  .to(".presentation_box p, .presentation_box a", {color: "#000"}, "<") 
+   .to(".presentation_box", {width: cardWidth, left: cardLeft, x: "-2.5rem", duration: 0.36}, "<") 
    .to(".cardName", {color: "#fff"}, "<") 
    .from(".presentation_box > span", {width: 0, duration: 0.6}) 
    .from(".presentation_box > div", {opacity: 0}, "<") 
    .reversed(true); 
 
 const card_presentation = document.querySelector(".card_presentation");
-card_presentation.addEventListener("mouseenter", () => tlCard.play() );
+const cardBtn = document.querySelector(".card_presentation > div:first-child");
+const closeCard = document.querySelectorAll("#closeOverlay, .presentation_box a");
+
+card_presentation.addEventListener("mouseenter", () => tlCard.play());
 card_presentation.addEventListener("mouseleave", () => tlCard.reverse());
-
-
-
-
-// intro background transition
-let introAnimation = gsap.timeline()
-introAnimation.from("body", { background: "#000" })
-    // .from("#introSec h1, #introSec p, #loopContainer p, header nav a, .cardName", { color: "#fff" }, "<")
-    .from("#introSec h1, #introSec p, #loopContainer p,  header nav a", { color: "#fff" }, "<")
-    // .to(".presentation_box a, .presentation_box p", { color: "#000" }, "<")
-
-
-ScrollTrigger.create({
-    trigger: "#introSec",
-    start: "70% 25%",
-    end: "100% 25%",
-    scrub: 1,
-    // markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
-    animation: introAnimation,
-})
-
-
-
-
-// Seleccionar todos los boxes
-const boxes = document.querySelectorAll('.speedCols > div');
-
-// Crear la animación para cada box
-boxes.forEach((box, index) => {
-    gsap.to(box, {
-        height: `${(index + 1) * 8 + 5}vw`,
-        scrollTrigger:{
-          trigger: "#about-section",
-          start: "center 100%",
-          end: "center 40%",
-          scrub: 1.5,
-          // markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
-        }
-    });
-});
-
-// Loop text animation
-const firstTextLoop = document.getElementById("firstTextLoop");
-const secondTextLoop = document.getElementById("secondTextLoop");
-const slider = document.getElementById("loopContainer");
-let xPercent = 0;
-let direction = 1;
-
-const animation = () => {
-  if (xPercent <= -100) xPercent = 0;
-  if (xPercent > 0) xPercent = -100;
-
-  gsap.set(firstTextLoop, { xPercent: xPercent });
-  gsap.set(secondTextLoop, { xPercent: xPercent });
-
-  xPercent += 0.09 * direction;
-  requestAnimationFrame(animation);
-};
-
-document.addEventListener("DOMContentLoaded", (event) => {
-    gsap.registerPlugin(ScrollTrigger);
-    requestAnimationFrame(animation);
-  
-    gsap.to(loopContainer, {
-      scrollTrigger: {
-        trigger: document.documentElement,
-        start: 0,
-        end: window.innerHeight,
-        scrub: 1,
-        onUpdate: e => direction = e.direction * -1,
-      },
-      x: "-200px",
-    });
-});
+cardBtn.addEventListener("click", () => tlCard.play());
+closeCard.forEach(close => close.addEventListener("click", () => tlCard.reverse()));
 
 
 
@@ -124,8 +80,7 @@ magneticElement(magneticBtn)
 
 
 
-
-// Funcion que evalua en que seccion estamos
+// ScrollSpy animation
 let navLinks = document.querySelectorAll('nav a');
 let section = document.querySelectorAll('.nav_section');
 const scrollspy = () =>{
@@ -146,10 +101,9 @@ window.addEventListener("load", scrollspy);
 
 
 
-
-// Funcion para que los anchors de la navegacion funcionen con scroll smoother
+// ScrollTo transition
 navLinks.forEach(link =>{
-  magneticElement(link)
+  magneticElement(link);
   link.addEventListener("click", ()=>{
     element = "#" + link.dataset.selector
     smoother.scrollTo(element , true, "top 100px")
@@ -158,7 +112,79 @@ navLinks.forEach(link =>{
 
 
 
+// intro background transition
+let transitionColorTl = gsap.timeline()
+transitionColorTl.from("body", { background: "#000" })
+              .from("#introSec h1, #introSec p, #loopContainer p,  header nav a", { color: "#fff" }, "<")
 
+ScrollTrigger.create({
+    trigger: "#introSec",
+    start: "80% 25%",
+    end: "100% 25%",
+    scrub: 1,
+    animation: transitionColorTl,
+})
+
+
+
+
+// Loop text animation
+const firstTextLoop = document.getElementById("firstTextLoop");
+const secondTextLoop = document.getElementById("secondTextLoop");
+const slider = document.getElementById("loopContainer");
+let xPercent = 0;
+let direction = 1;
+
+const animation = () => {
+  if (xPercent <= -100) xPercent = 0;
+  if (xPercent > 0) xPercent = -100;
+
+  gsap.set(firstTextLoop, { xPercent: xPercent });
+  gsap.set(secondTextLoop, { xPercent: xPercent });
+
+  xPercent += 0.09 * direction;
+  requestAnimationFrame(animation);
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger);
+    requestAnimationFrame(animation);
+  
+    gsap.to(loopContainer, {
+      scrollTrigger: {
+        trigger: document.documentElement,
+        start: 0,
+        end: window.innerHeight,
+        scrub: 1,
+        onUpdate: e => direction = e.direction * -1,
+      },
+      x: "-200px",
+    });
+});
+
+
+
+
+// elevate cols animation
+const upCols = document.querySelectorAll('.speedCols > div');
+upCols.forEach((box, index) => {
+    gsap.to(box, {
+        height: `${(index + 1) * colsHeight + 5}vw`,
+        scrollTrigger:{
+          trigger: "#about-section",
+          start: "center 100%",
+          end: "center 40%",
+          scrub: 1.5,
+          // markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
+        }
+    });
+});
+
+
+
+
+
+// Project cols animation
 const projects = document.querySelectorAll('.projectBox');
 projects.forEach((project, index) => {
     let tl = gsap.timeline(); 
