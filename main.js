@@ -11,8 +11,9 @@ let smoother = ScrollSmoother.create({
 
 // Card presentation animation 
 const tlCard = gsap.timeline();      
-tlCard.to(".presentation_box", {height: '19rem', padding: "7.3rem 2.5rem 2.5rem 2.5rem", y: "-1.8rem", duration: 0.4, ease: CustomEase.create("custom", "M0,0 C0.345,-0.007 0.419,0.296 0.652,0.58 0.729,0.674 0.895,1 1,1  ")})
-   .to(".presentation_box", {width: '40rem', x: "-2.5rem", duration: 0.36, ease: CustomEase.create("custom", "M0,0 C0.345,-0.007 0.419,0.296 0.652,0.58 0.729,0.674 0.895,1 1,1  ")}, "<") 
+tlCard.to(".presentation_box", {height: '19rem', top: 0, padding: "7.3rem 2.5rem 2.5rem 2.5rem", y: "-1.8rem", duration: 0.4})
+   .to(".card_presentation", { y: 30, duration: 0.4}, "<") 
+   .to(".presentation_box", {width: '40rem', left: 0, x: "-2.5rem", duration: 0.36}, "<") 
   //  .to(".presentation_box p, .presentation_box a", {color: "#000"}, "<") 
    .to(".cardName", {color: "#fff"}, "<") 
    .from(".presentation_box > span", {width: 0, duration: 0.6}) 
@@ -29,21 +30,39 @@ card_presentation.addEventListener("mouseleave", () => tlCard.reverse());
 // intro background transition
 let introAnimation = gsap.timeline()
 introAnimation.from("body", { background: "#000" })
-    .from("#introSec h1, #introSec p, #loopContainer p, header nav a, .cardName", { color: "#fff" }, "<")
+    // .from("#introSec h1, #introSec p, #loopContainer p, header nav a, .cardName", { color: "#fff" }, "<")
+    .from("#introSec h1, #introSec p, #loopContainer p,  header nav a", { color: "#fff" }, "<")
     // .to(".presentation_box a, .presentation_box p", { color: "#000" }, "<")
 
 
 ScrollTrigger.create({
     trigger: "#introSec",
-    start: "70% 40%",
-    end: "100% 40%",
+    start: "70% 25%",
+    end: "100% 25%",
     scrub: 1,
-    markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
+    // markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
     animation: introAnimation,
 })
 
 
 
+
+// Seleccionar todos los boxes
+const boxes = document.querySelectorAll('.speedCols > div');
+
+// Crear la animación para cada box
+boxes.forEach((box, index) => {
+    gsap.to(box, {
+        height: `${(index + 1) * 8 + 5}vw`,
+        scrollTrigger:{
+          trigger: "#about-section",
+          start: "center 100%",
+          end: "center 40%",
+          scrub: 1.5,
+          // markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
+        }
+    });
+});
 
 // Loop text animation
 const firstTextLoop = document.getElementById("firstTextLoop");
@@ -140,3 +159,19 @@ navLinks.forEach(link =>{
 
 
 
+const projects = document.querySelectorAll('.projectBox');
+projects.forEach((project, index) => {
+    let tl = gsap.timeline(); 
+    tl.from(project, { y: 120, opacity: 0, duration: 1})
+    tl.from(project.querySelector('img'), { scale: 1.08, duration: 0.7}, "<")
+    tl.from(project.querySelector('span'), { yPercent: 100, duration: 1}, "<0.3")
+
+    ScrollTrigger.create({
+        trigger: project,
+        start: "center 90%",
+        end: "center 45%",
+        toggleActions: "restart none none reverse",
+        markers: { startColor: "orange", endColor: "purple", fontSize: "12px" },
+        animation: tl
+    });
+});
