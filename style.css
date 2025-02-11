@@ -418,7 +418,7 @@ header nav a.active, header nav a:hover{
 footer{
     background-color: #000;
     padding: 3rem 0;
-    margin-top: 6rem;
+    margin-top: 10rem;
 }
 footer > div{
     display: flex;
