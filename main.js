@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-  // Card presentation animation 
+  // load animation
   const animationOnLoad = gsap.timeline();      
   animationOnLoad.to("h1 span", {yPercent: -100, duration: 1, ease: "expo.out", delay: .5})
     .to("#hookPhrase .mask", { width: "100%", duration: 0.4}, "<.7") 
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
   gsap.from("footer", {y: 100, duration: .4, ease: "power1.out",
     scrollTrigger: {
       trigger: "#projects-section",
-      start: "bottom 85%",
+      start: "bottom 90%",
       toggleActions: "restart none none reverse",
     }
   });
