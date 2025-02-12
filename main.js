@@ -116,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let transitionColorTl = gsap.timeline()
   transitionColorTl.from("body", { background: "#000" })
                 .from("#introSec h1, #introSec p, #loopContainer p,  header nav a", { color: "#fff" }, "<")
+                .to(".lookBox svg path", { stroke: "#000" }, "<")
 
   ScrollTrigger.create({
       trigger: "#introSec",
