@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
   // ScrollSpy animation
-  let navLinks = document.querySelectorAll('nav a');
+  let navLinks = document.querySelectorAll('nav p');
   let section = document.querySelectorAll('.nav_section');
   const scrollspy = () =>{
       section.forEach((sec, i) =>{
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // intro background transition
   let transitionColorTl = gsap.timeline()
   transitionColorTl.from("body", { background: "#000" })
-                .from("#introSec h1, #introSec p, #loopContainer p,  header nav a", { color: "#fff" }, "<")
+                .from("#introSec h1, #introSec p, #loopContainer p,  header nav p", { color: "#fff" }, "<")
                 .to(".lookBox svg path", { stroke: "#000" }, "<")
 
   ScrollTrigger.create({
