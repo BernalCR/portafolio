@@ -199,7 +199,7 @@ header nav p.active, header nav p:hover{
     margin-top: 5rem;
 }
 #introSec h1{
-    font-size: clamp(6rem, 14vw, 18rem);
+    font-size: clamp(6rem, 13vw, 18rem);
     line-height: 1.1;
     font-weight: 600;
 }
