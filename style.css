@@ -61,7 +61,7 @@ header nav{
     align-items: center;
     gap: 3rem;
 }
-header nav a{
+header nav p{
     transition: border 0.2s ease-in-out;
     border-bottom: 1px solid transparent;
     cursor: pointer;
@@ -69,7 +69,7 @@ header nav a{
     font-weight: 400;
     text-decoration: none;
 }
-header nav a.active, header nav a:hover{
+header nav p.active, header nav p:hover{
     border-bottom: 1px solid;
 }
 
@@ -183,7 +183,7 @@ header nav a.active, header nav a:hover{
     .card_presentation > div:first-child img{ height: 3.5rem; }
 
     header nav{ gap: 2rem; }
-    header nav a{
+    header nav p{
         font-size: 1.3rem;
     }
 }
